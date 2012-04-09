@@ -1,3 +1,4 @@
 .DS_Store
-/vendor/
-/src/NBW/AppContainer.php
+composer.phar
+vendor
+src/NBW/AppContainer.php
