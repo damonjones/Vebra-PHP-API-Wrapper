@@ -1,12 +1,30 @@
 {
+    "name": "YDD/vebra-api",
+    "description": "Vebra API Wrapper",
+    "keywords": ["vebra"],
+    "homepage": "https://github.com/mdavis1982/Vebra-PHP-API-Wrapper",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Damon Jones",
+            "email": "damon@yummyduckdesign.co.uk",
+            "homepage": "http://yummyduckdesign.co.uk/"
+        },
+        {
+            "name": "Matthew Davis",
+            "email": "matt@yummyduckdesign.co.uk",
+            "homepage": "http://yummyduckdesign.co.uk/"
+        }
+    ],
     "require": {
-        "php":                  ">=5.3.2",
-        "kriswallsmith/buzz":   "*",
-        "pimple/pimple":        "*"
+        "php": ">=5.3.2",
+        "kriswallsmith/buzz": "*",
+        "pimple/pimple": "*"
     },
     "autoload": {
         "psr-0": {
-            "YDD":              "src/"
+            "YDD": "lib/"
         }
     }
 }
