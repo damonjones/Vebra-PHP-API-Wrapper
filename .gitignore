@@ -1,4 +1,4 @@
 .DS_Store
 composer.phar
 vendor
-src/NBW/AppContainer.php
+AppContainer.php
