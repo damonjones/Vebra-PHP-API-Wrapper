@@ -17,6 +17,16 @@ namespace YDD\Vebra\Model;
  */
 class Property extends AttributedModel
 {
+    protected static $attributeTypeMapping = array(
+        'id'            => 'int',
+        'propertyid'    => 'int',
+        'system'        => 'string',
+        'firmid'        => 'int',
+        'branchid'      => 'int',
+        'database'      => 'int',
+        'featured'      => 'bool'
+    );
+
     protected $agentReference;          // varchar 30
     protected $address;                 // Address
     protected $price;                   // Price
@@ -66,16 +76,6 @@ class Property extends AttributedModel
     public function __construct()
     {
         parent::__construct();
-
-        $this->keyTypeMapping = array(
-            'id'            => 'int',
-            'propertyid'    => 'int',
-            'system'        => 'string',
-            'firmid'        => 'int',
-            'branchid'      => 'int',
-            'database'      => 'int',
-            'featured'      => 'bool',
-        );
 
         $this->setQueriedAt(new \DateTime);
     }
