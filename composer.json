@@ -19,8 +19,7 @@
     ],
     "require": {
         "php": ">=5.3.2",
-        "kriswallsmith/buzz": "*",
-        "pimple/pimple": "*"
+        "kriswallsmith/buzz": "*"
     },
     "autoload": {
         "psr-0": {
