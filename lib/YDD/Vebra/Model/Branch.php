@@ -300,4 +300,37 @@ class Branch
     {
         return $this->queriedAt;
     }
+
+    /**
+     * Import object properties from an associative array
+     *
+     * @param  array  $arr An associative array
+     */
+    public function fromArray(array $arr)
+    {
+        foreach ($arr as $key => $value) {
+            $method = 'set' . $key;
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+    }
+
+    /**
+     * Export the object properties to an associative array
+     *
+     * @return array An associative array
+     */
+    public function toArray()
+    {
+        $arr = array();
+        foreach ($this as $key => $value) {
+            $method = 'get' . $key;
+            if (method_exists($this, $method)) {
+                $arr[$key] = $this->$method();
+            }
+        }
+
+        return $arr;
+    }
 }
