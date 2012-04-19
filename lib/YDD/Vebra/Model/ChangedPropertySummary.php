@@ -42,4 +42,16 @@ class ChangedPropertySummary extends PropertySummary
     {
         return $this->lastAction;
     }
+
+     /**
+     * get ClientId
+     *
+     * @return int $clientId
+     */
+    public function getClientId()
+    {
+        preg_match('#branch\/(\d+)/#', $this->url, $matches);
+
+        return isset($matches[1]) ? (int) $matches[1] : null;
+    }
 }
