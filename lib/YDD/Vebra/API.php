@@ -240,7 +240,6 @@ class API
         $property = new Property;
         $property->setAttributes($xml->attributes());
 
-        return $property;
         $property->setAgentReference(self::normalise($xml->reference->agents, 'string'));
 
         $address = new Address;
@@ -367,7 +366,7 @@ class API
 
         foreach ($xml->property as $xmlProperty) {
             $property = new ChangedPropertySummary;
-            $property->setPropId(       self::normalise($xmlProperty->prop_id,      'int'));
+            $property->setPropId(       self::normalise($xmlProperty->propid,       'int'));
             $property->setLastChanged(  self::normalise($xmlProperty->lastchanged,  'datetime'));
             $property->setLastAction(   self::normalise($xmlProperty->action,       'string'));
             $property->setUrl(          self::normalise($xmlProperty->url,          'string'));
