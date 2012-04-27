@@ -17,11 +17,6 @@ namespace YDD\Vebra\Model;
  */
 class Area extends AttributedModel
 {
-    protected static $attributeTypeMapping = array(
-        'measure' => 'string',
-        'unit'    => 'string'
-    );
-
     protected $min;
     protected $max;
 
@@ -34,6 +29,11 @@ class Area extends AttributedModel
     public function __construct($min, $max)
     {
         parent::__construct();
+
+        $this->keyTypeMapping = array(
+            'measure'   => 'string',
+            'unit'      => 'string',
+        );
 
         $this->setMin($min);
         $this->setMax($max);

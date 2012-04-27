@@ -18,13 +18,15 @@ namespace YDD\Vebra\Model;
 class AttributedModel
 {
     protected $attributes;
+    protected $keyTypeMapping;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->attributes = array();
+        $this->attributes     = array();
+        $this->keyTypeMapping = array();
     }
 
     /**
@@ -51,8 +53,8 @@ class AttributedModel
      */
     public function setAttribute($key, $value)
     {
-        if (array_key_exists($key, static::$attributeTypeMapping)) {
-            $type = strtolower(static::$attributeTypeMapping[$key]);
+        if (array_key_exists($key, $this->keyTypeMapping)) {
+            $type = strtolower($this->keyTypeMapping[$key]);
             switch ($type) {
                 case 'boolean':
                 case 'bool':
@@ -73,7 +75,7 @@ class AttributedModel
 
             $this->attributes[$key] = $value;
         } else {
-            throw new \InvalidArgumentException("Unexpected attribute '$key'.");
+            throw new \IllegalArgumentException('Unexpected attribute.');
         }
 
         return $this;

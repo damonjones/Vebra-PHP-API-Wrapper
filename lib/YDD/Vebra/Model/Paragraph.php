@@ -17,15 +17,23 @@ namespace YDD\Vebra\Model;
  */
 class Paragraph extends AttributedModel
 {
-    protected static $attributeTypeMapping = array(
-        'id'   => 'int',
-        'type' => 'int'
-    );
-
     protected $name;        // varchar 255
     protected $file;        // int (index of the file, see Property's files property)
     protected $dimensions;  // Dimension
     protected $text;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->keyTypeMapping = array(
+            'id'   => 'int',
+            'type' => 'int',
+        );
+    }
 
     /**
      * get Name

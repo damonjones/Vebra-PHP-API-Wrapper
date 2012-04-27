@@ -17,12 +17,6 @@ namespace YDD\Vebra\Model;
  */
 class Price extends AttributedModel
 {
-    protected static $attributeTypeMapping = array(
-        'rent'      => 'string',
-        'currency'  => 'string',
-        'qualifier' => 'string'
-    );
-
     protected $value;
 
     /**
@@ -33,6 +27,12 @@ class Price extends AttributedModel
     public function __construct($value)
     {
         parent::__construct();
+
+        $this->keyTypeMapping = array(
+            'rent'      => 'string',
+            'currency'  => 'string',
+            'qualifier' => 'string',
+        );
 
         $this->value = $value;
     }
