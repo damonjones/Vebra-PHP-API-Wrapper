@@ -17,6 +17,10 @@ namespace YDD\Vebra\Model;
  */
 class Bullet extends AttributedModel
 {
+    protected static $attributeTypeMapping = array(
+        'id' => 'int'
+    );
+
     protected $value;   // varchar 50
 
     /**
@@ -27,10 +31,6 @@ class Bullet extends AttributedModel
     public function __construct($value)
     {
         parent::__construct();
-
-        $this->keyTypeMapping = array(
-            'id'   => 'int',
-        );
 
         $this->value = $value;
     }
