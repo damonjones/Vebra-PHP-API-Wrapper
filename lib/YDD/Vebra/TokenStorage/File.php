@@ -18,6 +18,12 @@ namespace YDD\Vebra\TokenStorage;
 class File extends Base
 {
     /**
+     * The unique username to use for finding this specific token
+     * @var string
+     */
+    protected $username;
+
+    /**
      * The path where the token files are stored
      * @var string
      */
@@ -30,8 +36,18 @@ class File extends Base
      */
     public function __construct($username, $path)
     {
+        if (!$username) {
+            throw new \InvalidArgumentException('Username must be provided.');
+        }
+
+        if (!$path) {
+            throw new \InvalidArgumentException('Token file path must be provided.');
+        }
+
+        $this->username = $username;
         $this->path = $path;
-        parent::__construct($username);
+
+        parent::__construct();
     }
 
     /**
@@ -48,7 +64,11 @@ class File extends Base
      */
     protected function load()
     {
-        $this->token = trim(file_get_contents($this->getFilename()));
+        if (false !== ($token = @file_get_contents($this->getFilename()))) {
+            $this->token = trim($token);
+        } else {
+            throw new \Exception(sprintf('Token could not be loaded from "%s"', $this->getFilename()));
+        }
     }
 
     /**
@@ -56,6 +76,8 @@ class File extends Base
      */
     protected function save()
     {
-        file_put_contents($this->getFilename(), $this->token);
+        if (false === ($result = @file_put_contents($this->getFilename(), $this->token))) {
+            throw new \Exception(sprintf('Token could not be saved to "%s"', $this->getFilename()));
+        }
     }
 }

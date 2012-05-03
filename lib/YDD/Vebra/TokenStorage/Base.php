@@ -15,14 +15,8 @@ namespace YDD\Vebra\TokenStorage;
 /**
  * A base implementation of TokenStorageInterface
  */
-class Base implements TokenStorageInterface
+abstract class Base implements TokenStorageInterface
 {
-    /**
-     * The unique username to use for finding this specific token
-     * @var string
-     */
-    protected $username;
-
     /**
      * The token
      * @var string
@@ -31,11 +25,9 @@ class Base implements TokenStorageInterface
 
     /**
      * Constructor
-     * @param string $username The username to use for finding this specific token
      */
-    public function __construct($username)
+    public function __construct()
     {
-        $this->username = $username;
         $this->load();
     }
 
@@ -57,4 +49,14 @@ class Base implements TokenStorageInterface
     {
         return $this->token;
     }
+
+    /**
+     * Load the token
+     */
+    abstract protected function load();
+
+    /**
+     * Save the token
+     */
+    abstract protected function save();
 }
