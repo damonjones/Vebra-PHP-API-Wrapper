@@ -52,7 +52,11 @@ use YDD\Vebra\Model\BranchSummary,
  */
 class API
 {
-    protected $host;
+
+    const API_VERSION = 3;
+
+    const HOST = 'http://webservices.vebra.com';
+
     protected $baseUrl;
     protected $dataFeedId;
     protected $username;
@@ -61,10 +65,9 @@ class API
     protected $client;
     protected $messageFactory;
 
-    public function __construct($host, $baseUrl, $dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory)
+    public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory)
     {
-        $this->host            = $host;
-        $this->baseUrl         = sprintf($baseUrl, $dataFeedId);
+        $this->baseUrl         = sprintf('/export/%s/v3/', $dataFeedId);
         $this->dataFeedId      = $dataFeedId;
         $this->username        = $username;
         $this->password        = $password;
@@ -79,7 +82,7 @@ class API
             throw new \InvalidArgumentException('URL must be a non-empty string.');
         }
 
-        $request = $this->messageFactory->createRequest('GET', $this->baseUrl . $url, $this->host);
+        $request = $this->messageFactory->createRequest('GET', $this->baseUrl . $url, self::HOST);
         $request->addHeader('Authorization: Basic ' . base64_encode($this->tokenStorage->getToken()));
         $response = $this->messageFactory->createResponse();
         $this->client->send($request, $response);
@@ -118,7 +121,7 @@ class API
                 }
 
                 // The token has expired, get a new token
-                $tokenRequest = $this->messageFactory->createRequest('GET', $this->baseUrl . 'branch', $this->host);
+                $tokenRequest = $this->messageFactory->createRequest('GET', $this->baseUrl . 'branch', self::HOST);
                 $tokenRequest->addHeader('Authorization: Basic ' . base64_encode($this->username.':'.$this->password));
                 $tokenResponse = $this->messageFactory->createResponse();
                 $this->client->send($tokenRequest, $tokenResponse);
