@@ -52,9 +52,7 @@ use YDD\Vebra\Model\BranchSummary,
  */
 class API
 {
-
     const API_VERSION = 3;
-
     const HOST = 'http://webservices.vebra.com';
 
     protected $baseUrl;
@@ -65,6 +63,16 @@ class API
     protected $client;
     protected $messageFactory;
 
+    /**
+     * Constructor
+     *
+     * @param string                $dataFeedId     The data feed ID
+     * @param string                $username       The username
+     * @param string                $password       The password
+     * @param TokenStorageInterface $tokenStorage   The client storage
+     * @param ClientInterface       $client         The client
+     * @param FactoryInterface      $messageFactory The message factory
+     */
     public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory)
     {
         $this->baseUrl         = sprintf('/export/%s/v3/', $dataFeedId);
@@ -76,6 +84,25 @@ class API
         $this->messageFactory  = $messageFactory;
     }
 
+    /**
+     * execute
+     *
+     * @param string  $url           The URL
+     * @param Boolean $secondAttempt If the request is the second attempt (after re-authentication due to a 401)
+     *
+     * @throws XMLParsingException
+     * @throws NoContentException
+     * @throws NotModifiedException
+     * @throws UnauthorizedException
+     * @throws ForbiddenException
+     * @throws NotFoundException
+     * @throws GoneException
+     * @throws InternalServerErrorException
+     * @throws NotImplementedException
+     * @throws UnknownStatusCodeException
+     *
+     * @return SimpleXMLElement
+     */
     public function execute($url, $secondAttempt = false)
     {
         if (!is_string($url) || empty($url)) {
@@ -90,7 +117,7 @@ class API
         switch ($response->getStatusCode()) {
             // All okay
             case 200:
-                // Return a SimpleXML object from the response
+                // Return a SimpleXMLElement created from the response
                 $saved = libxml_use_internal_errors(true);
                 $xml = simplexml_load_string($response->getContent());
                 $errors = libxml_get_errors();
@@ -166,6 +193,12 @@ class API
         }
     }
 
+
+    /**
+     * get Branches
+     *
+     * @return array
+     */
     public function getBranches()
     {
         $branches = array();
@@ -174,16 +207,25 @@ class API
 
         foreach ($xml->branch as $xmlBranch) {
             $branch = new BranchSummary;
-            $branch->setName       (self::normalise($xmlBranch->name,       'string'));
-            $branch->setFirmId(     self::normalise($xmlBranch->firmid,     'int'));
-            $branch->setBranchId(   self::normalise($xmlBranch->branchid,   'int'));
-            $branch->setUrl(        self::normalise($xmlBranch->url,        'string'));
+            $branch->setName(self::normalise($xmlBranch->name, 'string'));
+            $branch->setFirmId(self::normalise($xmlBranch->firmid, 'int'));
+            $branch->setBranchId(self::normalise($xmlBranch->branchid, 'int'));
+            $branch->setUrl(self::normalise($xmlBranch->url, 'string'));
             $branches[] = $branch;
         }
 
         return $branches;
     }
 
+    /**
+     * get Branch
+     *
+     * @param int $clientId The client ID
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return Branch
+     */
     public function getBranch($clientId)
     {
         if (!is_int($clientId)) {
@@ -193,20 +235,29 @@ class API
         $xml = $this->execute(sprintf('branch/%s', $clientId));
 
         $branch = new Branch;
-        $branch->setClientId(   $clientId);
-        $branch->setFirmId(     self::normalise($xml->FirmID,   'int'));
-        $branch->setBranchId(   self::normalise($xml->BranchID, 'int'));
-        $branch->setName(       self::normalise($xml->name,     'string'));
-        $branch->setStreet(     self::normalise($xml->street,   'string'));
-        $branch->setTown(       self::normalise($xml->town,     'string'));
-        $branch->setCounty(     self::normalise($xml->county,   'string'));
-        $branch->setPostcode(   self::normalise($xml->postcode, 'string'));
-        $branch->setPhone(      self::normalise($xml->phone,    'string'));
-        $branch->setEmail(      self::normalise($xml->email,    'string'));
+        $branch->setClientId($clientId);
+        $branch->setFirmId(self::normalise($xml{'FirmID'}, 'int'));
+        $branch->setBranchId(self::normalise($xml->{'BranchID'}, 'int'));
+        $branch->setName(self::normalise($xml->name, 'string'));
+        $branch->setStreet(self::normalise($xml->street, 'string'));
+        $branch->setTown(self::normalise($xml->town, 'string'));
+        $branch->setCounty(self::normalise($xml->county, 'string'));
+        $branch->setPostcode(self::normalise($xml->postcode, 'string'));
+        $branch->setPhone(self::normalise($xml->phone, 'string'));
+        $branch->setEmail(self::normalise($xml->email, 'string'));
 
         return $branch;
     }
 
+    /**
+     * get PropertyList
+     *
+     * @param int $clientId The client ID
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return array
+     */
     public function getPropertyList($clientId)
     {
         if (!is_int($clientId)) {
@@ -219,15 +270,25 @@ class API
 
         foreach ($xml->property as $xmlProperty) {
             $property = new PropertySummary;
-            $property->setPropId(       self::normalise($xmlProperty->prop_id,      'int'));
-            $property->setLastChanged(  self::normalise($xmlProperty->lastchanged,  'datetime'));
-            $property->setUrl(          self::normalise($xmlProperty->url,          'string'));
+            $property->setPropId(self::normalise($xmlProperty->{'prop_id'}, 'int'));
+            $property->setLastChanged(self::normalise($xmlProperty->lastchanged, 'datetime'));
+            $property->setUrl(self::normalise($xmlProperty->url, 'string'));
             $properties[] = $property;
         }
 
         return $properties;
     }
 
+    /**
+     * get Property
+     *
+     * @param int $clientId   The client ID
+     * @param int $propertyId The property ID
+     *
+     * @throws InvalidArgumentException
+     *
+     * @return Property
+     */
     public function getProperty($clientId, $propertyId)
     {
         if (!is_int($clientId)) {
@@ -247,52 +308,52 @@ class API
 
         $address = new Address;
         $address
-            ->setName(              self::normalise($xml->address->name,            'string'))
-            ->setStreet(            self::normalise($xml->address->street,          'string'))
-            ->setLocality(          self::normalise($xml->address->locality,        'string'))
-            ->setTown(              self::normalise($xml->address->town,            'string'))
-            ->setCounty(            self::normalise($xml->address->county,          'string'))
-            ->setPostcode(          self::normalise($xml->address->postcode,        'string'))
-            ->setCustomLocation(    self::normalise($xml->address->custom_location, 'string'))
-            ->setDisplay(           self::normalise($xml->address->display,         'string'))
-        ;
+            ->setName(self::normalise($xml->address->name, 'string'))
+            ->setStreet(self::normalise($xml->address->street, 'string'))
+            ->setLocality(self::normalise($xml->address->locality, 'string'))
+            ->setTown(self::normalise($xml->address->town, 'string'))
+            ->setCounty(self::normalise($xml->address->county, 'string'))
+            ->setPostcode(self::normalise($xml->address->postcode, 'string'))
+            ->setCustomLocation(self::normalise($xml->address->custom_location, 'string'))
+            ->setDisplay(self::normalise($xml->address->display, 'string'));
+
         $property->setAddress($address);
 
-        $price = new Price(         self::normalise($xml->price,                    'int'));
+        $price = new Price(self::normalise($xml->price, 'int'));
         $price->setAttributes($xml->price->attributes());
         $property->setPrice($price);
 
-        $property->setRmQualifier(  self::normalise($xml->rm_qualifier,             'int'));
-        $property->setAvailable(    self::normalise($xml->available,                'string'));
-        $property->setUploaded(     self::normalise($xml->uploaded,                 'string'));
-        $property->setLongitude(    self::normalise($xml->longitude,                'float'));
-        $property->setLatitude(     self::normalise($xml->latitude,                 'float'));
-        $property->setEasting(      self::normalise($xml->easting,                  'int'));
-        $property->setNorthing(     self::normalise($xml->northing,                 'int'));
-        $property->setWebStatus(    self::normalise($xml->web_status,               'int'));
-        $property->setCustomStatus( self::normalise($xml->custom_status,            'string'));
-        $property->setCommRent(     self::normalise($xml->comm_rent,                'string'));
-        $property->setPremium(      self::normalise($xml->premium),                 'string');
-        $property->setServiceCharge(self::normalise($xml->service_charge,           'string'));
-        $property->setRateableValue(self::normalise($xml->rateable_value,           'string'));
-        $property->setType(         self::normalise($xml->type,                     'string'));
-        $property->setFurnished(    self::normalise($xml->furnished,                'int'));
-        $property->setRmType(       self::normalise($xml->rm_type,                  'string'));
-        $property->setLetBond(      self::normalise($xml->let_bond,                 'int'));
-        $property->setRmLetTypeId(  self::normalise($xml->rm_let_type_id,           'int'));
-        $property->setBedrooms(     self::normalise($xml->bedrooms,                 'int'));
-        $property->setReceptions(   self::normalise($xml->receptions,               'int'));
-        $property->setBathrooms(    self::normalise($xml->bathrooms,                'int'));
-        $property->setUserField1(   self::normalise($xml->userfield1,               'string'));
-        $property->setUserField2(   self::normalise($xml->userfield2,               'int'));
-        $property->setSoldDate(     self::normalise($xml->solddate,                 'datetime'));
-        $property->setLeaseEnd(     self::normalise($xml->leaseend,                 'datetime'));
-        $property->setInstructed(   self::normalise($xml->instructed,               'datetime'));
-        $property->setSoldPrice(    self::normalise($xml->soldprice,                'int'));
-        $property->setGarden(       self::normalise($xml->garden,                   'boolean'));
-        $property->setParking(      self::normalise($xml->parking,                  'boolean'));
-        $property->setGroundRent(   self::normalise($xml->groundrent,               'string'));
-        $property->setCommission(   self::normalise($xml->commission,               'string'));
+        $property->setRmQualifier(self::normalise($xml->{'rm_qualifier'}, 'int'));
+        $property->setAvailable(self::normalise($xml->available, 'string'));
+        $property->setUploaded(self::normalise($xml->uploaded, 'string'));
+        $property->setLongitude(self::normalise($xml->longitude, 'float'));
+        $property->setLatitude(self::normalise($xml->latitude, 'float'));
+        $property->setEasting(self::normalise($xml->easting, 'int'));
+        $property->setNorthing(self::normalise($xml->northing, 'int'));
+        $property->setWebStatus(self::normalise($xml->{'web_status'}, 'int'));
+        $property->setCustomStatus(self::normalise($xml->{'custom_status'}, 'string'));
+        $property->setCommRent(self::normalise($xml->{'comm_rent'}, 'string'));
+        $property->setPremium(self::normalise($xml->premium, 'string'));
+        $property->setServiceCharge(self::normalise($xml->{'service_charge'}, 'string'));
+        $property->setRateableValue(self::normalise($xml->{'rateable_value'}, 'string'));
+        $property->setType(self::normalise($xml->type, 'string'));
+        $property->setFurnished(self::normalise($xml->furnished, 'int'));
+        $property->setRmType(self::normalise($xml->{'rm_type'}, 'string'));
+        $property->setLetBond(self::normalise($xml->{'let_bond'}, 'int'));
+        $property->setRmLetTypeId(self::normalise($xml->{'rm_let_type_id'}, 'int'));
+        $property->setBedrooms(self::normalise($xml->bedrooms, 'int'));
+        $property->setReceptions(self::normalise($xml->receptions, 'int'));
+        $property->setBathrooms(self::normalise($xml->bathrooms, 'int'));
+        $property->setUserField1(self::normalise($xml->userfield1, 'string'));
+        $property->setUserField2(self::normalise($xml->userfield2, 'int'));
+        $property->setSoldDate(self::normalise($xml->solddate, 'datetime'));
+        $property->setLeaseEnd(self::normalise($xml->leaseend, 'datetime'));
+        $property->setInstructed(self::normalise($xml->instructed, 'datetime'));
+        $property->setSoldPrice(self::normalise($xml->soldprice, 'int'));
+        $property->setGarden(self::normalise($xml->garden, 'boolean'));
+        $property->setParking(self::normalise($xml->parking, 'boolean'));
+        $property->setGroundRent(self::normalise($xml->groundrent, 'string'));
+        $property->setCommission(self::normalise($xml->commission, 'string'));
 
         $arr = array();
         foreach ($xml->area as $a) {
@@ -305,18 +366,18 @@ class API
         }
         $property->setArea($arr);
 
-        $property->setDescription(  self::normalise($xml->description, 'string'));
+        $property->setDescription(self::normalise($xml->description, 'string'));
 
         $property->setEnergyEfficiency(
             new EnergyRatingPair(
-                self::normalise($xml->hip->energy_performance->energy_efficiency->current,   'int'),
+                self::normalise($xml->hip->energy_performance->energy_efficiency->current, 'int'),
                 self::normalise($xml->hip->energy_performance->energy_efficiency->potential, 'int')
             )
         );
 
         $property->setEnvironmentalImpact(
             new EnergyRatingPair(
-                self::normalise($xml->hip->energy_performance->environmental_impact->current,   'int'),
+                self::normalise($xml->hip->energy_performance->environmental_impact->current, 'int'),
                 self::normalise($xml->hip->energy_performance->environmental_impact->potential, 'int')
             )
         );
@@ -324,13 +385,13 @@ class API
         $arr = array();
         foreach ($xml->paragraphs->paragraph as $p) {
             $paragraph = new Paragraph;
-            $paragraph->setName(self::normalise($p->name,   'string'));
-            $paragraph->setFile(self::normalise($p->file,   'int'));
+            $paragraph->setName(self::normalise($p->name, 'string'));
+            $paragraph->setFile(self::normalise($p->file, 'int'));
             $paragraph->setDimension(
                 new Dimension(
-                    self::normalise($p->dimensions->metric,     'string'),
-                    self::normalise($p->dimensions->imperial,   'string'),
-                    self::normalise($p->dimensions->mixed,      'string')
+                    self::normalise($p->dimensions->metric, 'string'),
+                    self::normalise($p->dimensions->imperial, 'string'),
+                    self::normalise($p->dimensions->mixed, 'string')
                 )
             );
             $paragraph->setText(self::normalise($p->text, 'string'));
@@ -350,10 +411,10 @@ class API
         $arr = array();
         foreach ($xml->files->file as $f) {
             $file = new File;
-            $file->setName(     self::normalise($f->name,    'string'));
-            $file->setUrl(      self::normalise($f->url,     'string'));
-            $file->setUpdated(  self::normalise($f->updated, 'string'));
-            $file->setAttributes($f->attributes())        ;
+            $file->setName(self::normalise($f->name, 'string'));
+            $file->setUrl(self::normalise($f->url, 'string'));
+            $file->setUpdated(self::normalise($f->updated, 'string'));
+            $file->setAttributes($f->attributes());
             $arr[$file->getAttribute('id')] = $file;
         }
         $property->setFiles($arr);
@@ -361,6 +422,13 @@ class API
         return $property;
     }
 
+    /**
+     * get ChangedProperties
+     *
+     * @param DateTime $date The changed date
+     *
+     * @return array
+     */
     public function getChangedProperties(\DateTime $date)
     {
         $properties = array();
@@ -369,16 +437,23 @@ class API
 
         foreach ($xml->property as $xmlProperty) {
             $property = new ChangedPropertySummary;
-            $property->setPropId(       self::normalise($xmlProperty->propid,       'int'));
-            $property->setLastChanged(  self::normalise($xmlProperty->lastchanged,  'datetime'));
-            $property->setLastAction(   self::normalise($xmlProperty->action,       'string'));
-            $property->setUrl(          self::normalise($xmlProperty->url,          'string'));
+            $property->setPropId(self::normalise($xmlProperty->propid, 'int'));
+            $property->setLastChanged(self::normalise($xmlProperty->lastchanged, 'datetime'));
+            $property->setLastAction(self::normalise($xmlProperty->action, 'string'));
+            $property->setUrl(self::normalise($xmlProperty->url, 'string'));
             $properties[] = $property;
         }
 
         return $properties;
     }
 
+    /**
+     * get ChangedFiles
+     *
+     * @param DateTime $date The changed date
+     *
+     * @return array
+     */
     public function getChangedFiles(\DateTime $date)
     {
         $files = array();
@@ -387,18 +462,26 @@ class API
 
         foreach ($xml->file as $xmlFile) {
             $file = new ChangedFileSummary;
-            $file->setFilePropId(   self::normalise($xmlFile->file_propid,  'int'));
-            $file->setLastChanged(  self::normalise($xmlFile->updated,      'datetime'));
-            $file->setIsDeleted(    self::normalise($xmlFile->deleted,      'bool'));
-            $file->setUrl(          self::normalise($xmlFile->url,          'string'));
-            $file->setPropUrl(      self::normalise($xmlFile->prop_url,     'string'));
+            $file->setFilePropId(self::normalise($xmlFile->{'file_propid'}, 'int'));
+            $file->setLastChanged(self::normalise($xmlFile->updated, 'datetime'));
+            $file->setIsDeleted(self::normalise($xmlFile->deleted, 'bool'));
+            $file->setUrl(self::normalise($xmlFile->url, 'string'));
+            $file->setPropUrl(self::normalise($xmlFile->{'prop_url'}, 'string'));
             $files[] = $file;
         }
 
         return $files;
     }
 
-    static protected function normalise($xml, $cast = null)
+    /**
+     * normalise
+     *
+     * @param SimpleXMLElement $xml  The xml element
+     * @param string           $cast The type to cast to
+     *
+     * @return mixed
+     */
+    protected static function normalise($xml, $cast = null)
     {
         if (!$xml || empty($xml)) {
             return null;
@@ -407,24 +490,18 @@ class API
         switch (strtolower($cast)) {
             case 'string':
                 return (string) $xml;
-                break;
             case 'integer':
             case 'int':
                 return (int) $xml;
-                break;
             case 'float':
                 return (float) $xml;
-                break;
             case 'boolean':
             case 'bool':
                 return (boolean) $xml;
-                break;
             case 'datetime':
                 return new \DateTime((string) $xml);
-                break;
             default:
                 return $xml;
-                break;
         }
     }
 }

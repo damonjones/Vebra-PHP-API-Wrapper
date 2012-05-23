@@ -26,7 +26,7 @@ class ChangedFileSummary
     /**
      * set FilePropId
      *
-     * @param int $propId
+     * @param int $filePropId
      *
      * @return object
      */

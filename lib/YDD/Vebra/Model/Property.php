@@ -1092,7 +1092,7 @@ class Property extends AttributedModel
     /**
      * Import object properties from an associative array
      *
-     * @param  array  $arr An associative array
+     * @param array $arr An associative array
      */
     public function fromArray(array $arr)
     {
