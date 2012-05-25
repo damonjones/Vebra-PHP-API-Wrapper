@@ -27,7 +27,7 @@ use YDD\Vebra\Exception\XMLParsingException,
 use YDD\Vebra\TokenStorage\TokenStorageInterface;
 
 use Buzz\Client\ClientInterface,
-    Buzz\Message\FactoryInterface,
+    Buzz\Message\Factory\FactoryInterface,
     Buzz\Message\Response
 ;
 
