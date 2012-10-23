@@ -40,7 +40,7 @@ Now that we have the required parameters and objects, we can create an instance 
     use YDD\Vebra\API as VebraAPI;
     use YDD\Vebra\TokenStorage\File as TokenStorageFile;
     use Buzz\Client\Curl as BuzzClientCurl;
-    use Buzz\Message\Factory as BuzzMessageFactory;
+    use Buzz\Message\Factory\Factory as BuzzMessageFactory;
 
     $api = new VebraAPI(
         'datafeedid',
