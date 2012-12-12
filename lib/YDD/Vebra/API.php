@@ -497,7 +497,7 @@ class API
                 return (float) $xml;
             case 'boolean':
             case 'bool':
-                return (boolean) $xml;
+                return (string) $xml === 'true';
             case 'datetime':
                 return new \DateTime((string) $xml);
             default:
