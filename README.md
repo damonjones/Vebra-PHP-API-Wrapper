@@ -13,6 +13,38 @@ Requirements
 PHP 5.3+<br />
 The [Buzz](http://github.com/kriswallsmith/Buzz/) lightweight HTTP Request library.
 
+Recommended installation method (using the Composer dependency manager)
+-----------------------------------------------------------------------
+
+If you are starting a new project, or if your existing project does not use composer, download and install it:
+
+    curl -s http://getcomposer.org/installer | php
+
+Create a new composer.json file with this library as a dependency:
+
+```json
+{
+    "require": {
+        "ydd/vebra": "*@dev"
+    }
+}
+```
+
+If your project is already using composer then edit the composer.json file in your project and add this library as a dependency, as shown above.
+
+Install your project dependencies using composer:
+
+    php composer.phar install
+
+Require the composer autoloader in your script or bootstrap code:
+```php
+<?php
+
+require 'vendor/autoload.php';
+```
+
+For more information on composer, see the [composer](http://getcomposer.org) website.
+
 Authentication
 --------------
 
