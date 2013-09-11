@@ -153,9 +153,11 @@ class API
                 $tokenResponse = $this->messageFactory->createResponse();
                 $this->client->send($tokenRequest, $tokenResponse);
 
-                // save the token
+                // if we have a token, save it
                 $token = $tokenResponse->getHeader('Token');
-                $this->tokenStorage->setToken(trim($token));
+                if ( ! is_null($token)) {
+                    $this->tokenStorage->setToken(trim($token));
+                }
 
                 // try again
                 return $this->execute($url, true);
