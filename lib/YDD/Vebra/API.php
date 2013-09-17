@@ -147,15 +147,20 @@ class API
                     throw new UnauthorizedException;
                 }
 
-                // The token has expired, get a new token
+                // The token may have expired, request a new token
                 $tokenRequest = $this->messageFactory->createRequest('GET', $this->baseUrl . 'branch', self::HOST);
                 $tokenRequest->addHeader('Authorization: Basic ' . base64_encode($this->username.':'.$this->password));
                 $tokenResponse = $this->messageFactory->createResponse();
                 $this->client->send($tokenRequest, $tokenResponse);
 
+                if (401 === $tokenResponse->getStatusCode()) {   
+                    // Unauthorized: current token hasn't expired or invalid credentials
+                    throw new UnauthorizedException;
+                }
+
                 // save the token
                 $token = $tokenResponse->getHeader('Token');
-                $this->tokenStorage->setToken(trim($token));
+                $this->tokenStorage->setToken(trim($token)); 
 
                 // try again
                 return $this->execute($url, true);
