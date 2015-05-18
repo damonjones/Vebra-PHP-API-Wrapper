@@ -20,7 +20,8 @@ class Price extends AttributedModel
     protected static $attributeTypeMapping = array(
         'rent'      => 'string',
         'currency'  => 'string',
-        'qualifier' => 'string'
+        'qualifier' => 'string',
+        'display'   => 'boolean'
     );
 
     protected $value;
