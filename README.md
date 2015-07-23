@@ -5,7 +5,7 @@ This is a third-party PHP library which aims to simplify the use of the Vebra XM
 The current version of the API is version 8.<br />
 NB: This library is not affiliated with [Vebra](http://vebra.com/) in any way.<br />
 
-See [Vebra API Version 3](http://webservices.vebra.com/export/xsd/8/exportapi.xsd) for more information.
+See [Vebra API Version 8](http://webservices.vebra.com/export/xsd/v8/exportapi.xsd) for more information.
 
 Requirements
 ------------
