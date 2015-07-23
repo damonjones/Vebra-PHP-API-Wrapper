@@ -28,7 +28,8 @@ use YDD\Vebra\TokenStorage\TokenStorageInterface;
 
 use Buzz\Client\ClientInterface,
     Buzz\Message\Factory\FactoryInterface,
-    Buzz\Message\Response
+    Buzz\Message\Response,
+    Buzz\Exception\InvalidArgumentException
 ;
 
 use YDD\Vebra\Model\BranchSummary,
@@ -52,7 +53,6 @@ use YDD\Vebra\Model\BranchSummary,
  */
 class API
 {
-    const API_VERSION = 3;
     const HOST = 'http://webservices.vebra.com';
 
     protected $baseUrl;
@@ -73,9 +73,9 @@ class API
      * @param ClientInterface       $client         The client
      * @param FactoryInterface      $messageFactory The message factory
      */
-    public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory)
+    public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory, $feedVersion = 8)
     {
-        $this->baseUrl         = sprintf('/export/%s/v3/', $dataFeedId);
+        $this->baseUrl         = sprintf('/export/%s/'.$feedVersion.'/', $dataFeedId);
         $this->dataFeedId      = $dataFeedId;
         $this->username        = $username;
         $this->password        = $password;
@@ -125,7 +125,7 @@ class API
                 libxml_use_internal_errors($saved);
 
                 if ($errors) {
-                    throw new XMLParsingException;
+                    throw new XMLParsingException($errors);
                 }
 
                 return $xml;
