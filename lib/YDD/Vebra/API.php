@@ -73,7 +73,7 @@ class API
      * @param ClientInterface       $client         The client
      * @param FactoryInterface      $messageFactory The message factory
      */
-    public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory, $feedVersion = 8)
+    public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory, $feedVersion = 'v8')
     {
         $this->baseUrl         = sprintf('/export/%s/'.$feedVersion.'/', $dataFeedId);
         $this->dataFeedId      = $dataFeedId;
