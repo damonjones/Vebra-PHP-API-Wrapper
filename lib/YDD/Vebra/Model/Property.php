@@ -30,6 +30,8 @@ class Property extends AttributedModel
     protected $agentReference;          // varchar 30
     protected $address;                 // Address
     protected $price;                   // Price
+    protected $rentalFees;              // varchar 400
+    protected $lettingsFee;             // varchar 4000
     protected $rmQualifier;             // enum
     protected $available;               // string
     protected $uploaded;                // string
@@ -151,6 +153,54 @@ class Property extends AttributedModel
     public function setPrice(Price $price)
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * get RentalFees
+     *
+     * @return string $rentalFees
+     */
+    public function getRentalFees()
+    {
+        return $this->rentalFees;
+    }
+
+    /**
+     * set RentalFees
+     *
+     * @param string $rentalFees
+     *
+     * @return object
+     */
+    public function setRentalFees($rentalFees)
+    {
+        $this->rentalFees = $rentalFees;
+
+        return $this;
+    }
+
+    /**
+     * get LettingsFee
+     *
+     * @return string $lettingsFee
+     */
+    public function getLettingsFee()
+    {
+        return $this->lettingsFee;
+    }
+
+    /**
+     * set LettingsFee
+     *
+     * @param string $lettingsFee
+     *
+     * @return object
+     */
+    public function setLettingsFee($lettingsFee)
+    {
+        $this->lettingsFee = $lettingsFee;
 
         return $this;
     }

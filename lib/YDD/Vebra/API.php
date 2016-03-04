@@ -330,6 +330,8 @@ class API
         $price->setAttributes($xml->price->attributes());
         $property->setPrice($price);
 
+        $property->setRentalFees(self::normalise($xml->rentalfees, 'string'));
+        $property->setLettingsFee(self::normalise($xml->lettingsfee, 'string'));
         $property->setRmQualifier(self::normalise($xml->{'rm_qualifier'}, 'int'));
         $property->setAvailable(self::normalise($xml->available, 'string'));
         $property->setUploaded(self::normalise($xml->uploaded, 'string'));
