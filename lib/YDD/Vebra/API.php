@@ -366,11 +366,13 @@ class API
         $property->setGroundRent(self::normalise($xml->groundrent, 'string'));
         $property->setCommission(self::normalise($xml->commission, 'string'));
 
-        $landArea = new LandArea(
-            self::normalise($xml->landarea->area, 'float')
-        );
-        $landArea->setAttributes($xml->landarea->attributes());
-        $property->setLandArea($landArea);
+        if ($xml->landarea) {
+            $landArea = new LandArea(
+                self::normalise($xml->landarea->area, 'float')
+            );
+            $landArea->setAttributes($xml->landarea->attributes());
+            $property->setLandArea($landArea);
+        }
 
         $property->setStreetView(
             new StreetView(
