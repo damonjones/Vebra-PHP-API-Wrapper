@@ -17,11 +17,36 @@ namespace YDD\Vebra\Model;
  */
 class ChangedFileSummary
 {
+    protected $fileId;
     protected $filePropId;
     protected $lastChanged;
     protected $isDeleted;
     protected $url;
     protected $propUrl;
+
+    /**
+     * set FileId
+     *
+     * @param int $fileId
+     *
+     * @return $this
+     */
+    public function setFileId($fileId)
+    {
+        $this->fileId = (int) $fileId;
+
+        return $this;
+    }
+
+    /**
+     * get FileId
+     *
+     * @return int $fileId
+     */
+    public function getFileId()
+    {
+        return $this->fileId;
+    }
 
     /**
      * set FilePropId

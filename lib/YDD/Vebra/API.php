@@ -467,6 +467,7 @@ class API
 
         foreach ($xml->file as $xmlFile) {
             $file = new ChangedFileSummary;
+            $file->setFileId(self::normalise($xmlFile->{'file_id'}, 'int'));
             $file->setFilePropId(self::normalise($xmlFile->{'file_propid'}, 'int'));
             $file->setLastChanged(self::normalise($xmlFile->updated, 'datetime'));
             $file->setIsDeleted(self::normalise($xmlFile->deleted, 'bool'));
