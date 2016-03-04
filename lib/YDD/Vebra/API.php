@@ -361,6 +361,7 @@ class API
         $property->setSoldPrice(self::normalise($xml->soldprice, 'int'));
         $property->setGarden(self::normalise($xml->garden, 'boolean'));
         $property->setParking(self::normalise($xml->parking, 'boolean'));
+        $property->setNewBuild(self::normalise($xml->newbuild, 'boolean'));
         $property->setGroundRent(self::normalise($xml->groundrent, 'string'));
         $property->setCommission(self::normalise($xml->commission, 'string'));
 

@@ -62,6 +62,7 @@ class Property extends AttributedModel
     protected $soldPrice;               // int
     protected $garden;                  // boolean
     protected $parking;                 // boolean
+    protected $newBuild;                // boolean
     protected $groundRent;              // varchar 50
     protected $commission;              // varchar 30
     protected $area;                    // Area
@@ -921,6 +922,30 @@ class Property extends AttributedModel
     public function setParking($parking)
     {
         $this->parking = (bool) $parking;
+
+        return $this;
+    }
+
+    /**
+     * get NewBuild
+     *
+     * @return Boolean $newBuild
+     */
+    public function getNewBuild()
+    {
+        return $this->newBuild;
+    }
+
+    /**
+     * set NewBuild
+     *
+     * @param Boolean $newBuild
+     *
+     * @return object
+     */
+    public function setNewBuild($newBuild)
+    {
+        $this->newBuild = (bool) $newBuild;
 
         return $this;
     }
