@@ -45,7 +45,7 @@ class Property extends AttributedModel
     protected $rateableValue;           // varchar 30
     protected $type;                    // varchar 50
     protected $furnished;               // enum
-    protected $rmType;                  // varchar 50
+    protected $rmType;                  // int
     protected $letBond;                 // int
     protected $rmLetTypeId;             // enum
     protected $bedrooms;                // int
@@ -516,7 +516,7 @@ class Property extends AttributedModel
     /**
      * get RmType
      *
-     * @return string $rmType
+     * @return int $rmType
      */
     public function getRmType()
     {
@@ -526,13 +526,13 @@ class Property extends AttributedModel
     /**
      * set RmType
      *
-     * @param string $rmType
+     * @param int $rmType
      *
      * @return object
      */
     public function setRmType($rmType)
     {
-        $this->rmType = $rmType;
+        $this->rmType = (int) $rmType;
 
         return $this;
     }

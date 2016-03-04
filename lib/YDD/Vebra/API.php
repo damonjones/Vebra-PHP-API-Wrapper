@@ -343,7 +343,7 @@ class API
         $property->setRateableValue(self::normalise($xml->{'rateable_value'}, 'string'));
         $property->setType(self::normalise($xml->type, 'string'));
         $property->setFurnished(self::normalise($xml->furnished, 'int'));
-        $property->setRmType(self::normalise($xml->{'rm_type'}, 'string'));
+        $property->setRmType(self::normalise($xml->{'rm_type'}, 'int'));
         $property->setLetBond(self::normalise($xml->{'let_bond'}, 'int'));
         $property->setRmLetTypeId(self::normalise($xml->{'rm_let_type_id'}, 'int'));
         $property->setBedrooms(self::normalise($xml->bedrooms, 'int'));
