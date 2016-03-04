@@ -63,6 +63,7 @@ class Property extends AttributedModel
     protected $groundRent;              // varchar 50
     protected $commission;              // varchar 30
     protected $area;                    // Area
+    protected $landArea;                // LandArea
     protected $description;             // varchar
     protected $energyEfficiency;        // EnergyRatingPair
     protected $environmentalImpact;     // EnergyRatingPair
@@ -942,6 +943,30 @@ class Property extends AttributedModel
     public function setArea(array $area)
     {
         $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * get LandArea
+     *
+     * @return LandArea $landArea
+     */
+    public function getLandArea()
+    {
+        return $this->landArea;
+    }
+
+    /**
+     * set LandArea
+     *
+     * @param LandArea $landArea
+     *
+     * @return object
+     */
+    public function setLandArea(LandArea $landArea)
+    {
+        $this->landArea = $landArea;
 
         return $this;
     }
