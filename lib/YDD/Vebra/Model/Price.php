@@ -21,7 +21,7 @@ class Price extends AttributedModel
         'rent'      => 'string',
         'currency'  => 'string',
         'qualifier' => 'string',
-        'display'   => 'boolean'
+        'display'   => 'string'
     );
 
     protected $value;
