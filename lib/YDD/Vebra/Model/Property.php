@@ -37,6 +37,7 @@ class Property extends AttributedModel
     protected $latitude;                // float
     protected $easting;                 // int
     protected $northing;                // int
+    protected $streetView;              // StreetView
     protected $webStatus;               // enum
     protected $customStatus;            // varchar 30
     protected $commRent;                // varchar 30
@@ -317,6 +318,30 @@ class Property extends AttributedModel
     public function setNorthing($northing)
     {
         $this->northing = (int) $northing;
+
+        return $this;
+    }
+
+    /**
+     * get StreetView
+     *
+     * @return StreetView $streetView
+     */
+    public function getStreetView()
+    {
+        return $this->streetView;
+    }
+
+    /**
+     * set StreetView
+     *
+     * @param StreetView $streetView
+     *
+     * @return object
+     */
+    public function setStreetView(StreetView $streetView)
+    {
+        $this->streetView = $streetView;
 
         return $this;
     }

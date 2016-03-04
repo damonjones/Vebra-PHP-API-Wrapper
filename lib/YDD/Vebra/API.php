@@ -44,6 +44,7 @@ use YDD\Vebra\Model\BranchSummary,
     YDD\Vebra\Model\Dimension,
     YDD\Vebra\Model\Bullet,
     YDD\Vebra\Model\File,
+    YDD\Vebra\Model\StreetView,
     YDD\Vebra\Model\ChangedPropertySummary,
     YDD\Vebra\Model\ChangedFileSummary
 ;
@@ -359,6 +360,16 @@ class API
         $property->setParking(self::normalise($xml->parking, 'boolean'));
         $property->setGroundRent(self::normalise($xml->groundrent, 'string'));
         $property->setCommission(self::normalise($xml->commission, 'string'));
+
+        $property->setStreetView(
+            new StreetView(
+                self::normalise($xml->streetview->pov_latitude, 'float'),
+                self::normalise($xml->streetview->pov_longitude, 'float'),
+                self::normalise($xml->streetview->pov_pitch, 'float'),
+                self::normalise($xml->streetview->pov_heading, 'float'),
+                self::normalise($xml->streetview->pov_zoom, 'int')
+            )
+        );
 
         $arr = array();
         foreach ($xml->area as $a) {
