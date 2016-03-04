@@ -363,8 +363,8 @@ class API
         $arr = array();
         foreach ($xml->area as $a) {
             $area = new Area(
-                self::normalise($a->min, 'int'),
-                self::normalise($a->max, 'int')
+                self::normalise($a->min, 'float'),
+                self::normalise($a->max, 'float')
             );
             $area->setAttributes($a->attributes());
             $arr[] = $area;
