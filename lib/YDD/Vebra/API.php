@@ -44,6 +44,8 @@ use YDD\Vebra\Model\BranchSummary,
     YDD\Vebra\Model\Dimension,
     YDD\Vebra\Model\Bullet,
     YDD\Vebra\Model\File,
+    YDD\Vebra\Model\LandArea,
+    YDD\Vebra\Model\StreetView,
     YDD\Vebra\Model\ChangedPropertySummary,
     YDD\Vebra\Model\ChangedFileSummary
 ;
@@ -72,8 +74,9 @@ class API
      * @param TokenStorageInterface $tokenStorage   The client storage
      * @param ClientInterface       $client         The client
      * @param FactoryInterface      $messageFactory The message factory
+     * @param string                $feedVersion    The feed version
      */
-    public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory, $feedVersion = 'v8')
+    public function __construct($dataFeedId, $username, $password, TokenStorageInterface $tokenStorage, ClientInterface $client, FactoryInterface $messageFactory, $feedVersion = 'v9')
     {
         $this->baseUrl         = sprintf('/export/%s/'.$feedVersion.'/', $dataFeedId);
         $this->dataFeedId      = $dataFeedId;
@@ -328,6 +331,8 @@ class API
         $price->setAttributes($xml->price->attributes());
         $property->setPrice($price);
 
+        $property->setRentalFees(self::normalise($xml->rentalfees, 'string'));
+        $property->setLettingsFee(self::normalise($xml->lettingsfee, 'string'));
         $property->setRmQualifier(self::normalise($xml->{'rm_qualifier'}, 'int'));
         $property->setAvailable(self::normalise($xml->available, 'string'));
         $property->setUploaded(self::normalise($xml->uploaded, 'string'));
@@ -343,7 +348,7 @@ class API
         $property->setRateableValue(self::normalise($xml->{'rateable_value'}, 'string'));
         $property->setType(self::normalise($xml->type, 'string'));
         $property->setFurnished(self::normalise($xml->furnished, 'int'));
-        $property->setRmType(self::normalise($xml->{'rm_type'}, 'string'));
+        $property->setRmType(self::normalise($xml->{'rm_type'}, 'int'));
         $property->setLetBond(self::normalise($xml->{'let_bond'}, 'int'));
         $property->setRmLetTypeId(self::normalise($xml->{'rm_let_type_id'}, 'int'));
         $property->setBedrooms(self::normalise($xml->bedrooms, 'int'));
@@ -357,14 +362,33 @@ class API
         $property->setSoldPrice(self::normalise($xml->soldprice, 'int'));
         $property->setGarden(self::normalise($xml->garden, 'boolean'));
         $property->setParking(self::normalise($xml->parking, 'boolean'));
+        $property->setNewBuild(self::normalise($xml->newbuild, 'boolean'));
         $property->setGroundRent(self::normalise($xml->groundrent, 'string'));
         $property->setCommission(self::normalise($xml->commission, 'string'));
+
+        if ($xml->landarea) {
+            $landArea = new LandArea(
+                self::normalise($xml->landarea->area, 'float')
+            );
+            $landArea->setAttributes($xml->landarea->attributes());
+            $property->setLandArea($landArea);
+        }
+
+        $property->setStreetView(
+            new StreetView(
+                self::normalise($xml->streetview->pov_latitude, 'float'),
+                self::normalise($xml->streetview->pov_longitude, 'float'),
+                self::normalise($xml->streetview->pov_pitch, 'float'),
+                self::normalise($xml->streetview->pov_heading, 'float'),
+                self::normalise($xml->streetview->pov_zoom, 'int')
+            )
+        );
 
         $arr = array();
         foreach ($xml->area as $a) {
             $area = new Area(
-                self::normalise($a->min, 'int'),
-                self::normalise($a->max, 'int')
+                self::normalise($a->min, 'float'),
+                self::normalise($a->max, 'float')
             );
             $area->setAttributes($a->attributes());
             $arr[] = $area;
@@ -467,6 +491,7 @@ class API
 
         foreach ($xml->file as $xmlFile) {
             $file = new ChangedFileSummary;
+            $file->setFileId(self::normalise($xmlFile->{'file_id'}, 'int'));
             $file->setFilePropId(self::normalise($xmlFile->{'file_propid'}, 'int'));
             $file->setLastChanged(self::normalise($xmlFile->updated, 'datetime'));
             $file->setIsDeleted(self::normalise($xmlFile->deleted, 'bool'));

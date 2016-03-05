@@ -13,52 +13,50 @@
 namespace YDD\Vebra\Model;
 
 /**
- * Price
+ * LandArea
  */
-class Price extends AttributedModel
+class LandArea extends AttributedModel
 {
     protected static $attributeTypeMapping = array(
-        'rent'      => 'string',
-        'currency'  => 'string',
-        'qualifier' => 'string',
-        'display'   => 'string'
+        'unit'    => 'string'
     );
 
-    protected $value;
+    protected $area;
 
     /**
      * Constructor
      *
-     * @param int $value The price
+     * @param float $area The area
      */
-    public function __construct($value)
+    public function __construct($area)
     {
         parent::__construct();
 
-        $this->value = $value;
+        $this->setArea($area);
     }
 
     /**
-     * get Value
+     * get Area
      *
-     * @return int $value
+     * @return float $area
      */
-    public function getValue()
+    public function getArea()
     {
-        return $this->value;
+        return $this->area;
     }
 
     /**
-     * set Value
+     * set Area
      *
-     * @param int $value
+     * @param float $area
      *
      * @return object
      */
-    public function setValue($value)
+    public function setArea($area)
     {
-        $this->value = (int) $value;
+        $this->area = (float) $area;
 
         return $this;
     }
+
 }

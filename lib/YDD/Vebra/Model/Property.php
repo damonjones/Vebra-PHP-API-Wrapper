@@ -30,6 +30,8 @@ class Property extends AttributedModel
     protected $agentReference;          // varchar 30
     protected $address;                 // Address
     protected $price;                   // Price
+    protected $rentalFees;              // varchar 400
+    protected $lettingsFee;             // varchar 4000
     protected $rmQualifier;             // enum
     protected $available;               // string
     protected $uploaded;                // string
@@ -37,6 +39,7 @@ class Property extends AttributedModel
     protected $latitude;                // float
     protected $easting;                 // int
     protected $northing;                // int
+    protected $streetView;              // StreetView
     protected $webStatus;               // enum
     protected $customStatus;            // varchar 30
     protected $commRent;                // varchar 30
@@ -45,7 +48,7 @@ class Property extends AttributedModel
     protected $rateableValue;           // varchar 30
     protected $type;                    // varchar 50
     protected $furnished;               // enum
-    protected $rmType;                  // varchar 50
+    protected $rmType;                  // int
     protected $letBond;                 // int
     protected $rmLetTypeId;             // enum
     protected $bedrooms;                // int
@@ -59,9 +62,11 @@ class Property extends AttributedModel
     protected $soldPrice;               // int
     protected $garden;                  // boolean
     protected $parking;                 // boolean
+    protected $newBuild;                // boolean
     protected $groundRent;              // varchar 50
     protected $commission;              // varchar 30
     protected $area;                    // Area
+    protected $landArea;                // LandArea
     protected $description;             // varchar
     protected $energyEfficiency;        // EnergyRatingPair
     protected $environmentalImpact;     // EnergyRatingPair
@@ -149,6 +154,54 @@ class Property extends AttributedModel
     public function setPrice(Price $price)
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * get RentalFees
+     *
+     * @return string $rentalFees
+     */
+    public function getRentalFees()
+    {
+        return $this->rentalFees;
+    }
+
+    /**
+     * set RentalFees
+     *
+     * @param string $rentalFees
+     *
+     * @return object
+     */
+    public function setRentalFees($rentalFees)
+    {
+        $this->rentalFees = $rentalFees;
+
+        return $this;
+    }
+
+    /**
+     * get LettingsFee
+     *
+     * @return string $lettingsFee
+     */
+    public function getLettingsFee()
+    {
+        return $this->lettingsFee;
+    }
+
+    /**
+     * set LettingsFee
+     *
+     * @param string $lettingsFee
+     *
+     * @return object
+     */
+    public function setLettingsFee($lettingsFee)
+    {
+        $this->lettingsFee = $lettingsFee;
 
         return $this;
     }
@@ -317,6 +370,30 @@ class Property extends AttributedModel
     public function setNorthing($northing)
     {
         $this->northing = (int) $northing;
+
+        return $this;
+    }
+
+    /**
+     * get StreetView
+     *
+     * @return StreetView $streetView
+     */
+    public function getStreetView()
+    {
+        return $this->streetView;
+    }
+
+    /**
+     * set StreetView
+     *
+     * @param StreetView $streetView
+     *
+     * @return object
+     */
+    public function setStreetView(StreetView $streetView)
+    {
+        $this->streetView = $streetView;
 
         return $this;
     }
@@ -516,7 +593,7 @@ class Property extends AttributedModel
     /**
      * get RmType
      *
-     * @return string $rmType
+     * @return int $rmType
      */
     public function getRmType()
     {
@@ -526,13 +603,13 @@ class Property extends AttributedModel
     /**
      * set RmType
      *
-     * @param string $rmType
+     * @param int $rmType
      *
      * @return object
      */
     public function setRmType($rmType)
     {
-        $this->rmType = $rmType;
+        $this->rmType = (int) $rmType;
 
         return $this;
     }
@@ -850,6 +927,30 @@ class Property extends AttributedModel
     }
 
     /**
+     * get NewBuild
+     *
+     * @return Boolean $newBuild
+     */
+    public function getNewBuild()
+    {
+        return $this->newBuild;
+    }
+
+    /**
+     * set NewBuild
+     *
+     * @param Boolean $newBuild
+     *
+     * @return object
+     */
+    public function setNewBuild($newBuild)
+    {
+        $this->newBuild = (bool) $newBuild;
+
+        return $this;
+    }
+
+    /**
      * get GroundRent
      *
      * @return string $groundRent
@@ -917,6 +1018,30 @@ class Property extends AttributedModel
     public function setArea(array $area)
     {
         $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * get LandArea
+     *
+     * @return LandArea $landArea
+     */
+    public function getLandArea()
+    {
+        return $this->landArea;
+    }
+
+    /**
+     * set LandArea
+     *
+     * @param LandArea $landArea
+     *
+     * @return object
+     */
+    public function setLandArea(LandArea $landArea)
+    {
+        $this->landArea = $landArea;
 
         return $this;
     }

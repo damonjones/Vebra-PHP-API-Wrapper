@@ -28,8 +28,8 @@ class Area extends AttributedModel
     /**
      * Constructor
      *
-     * @param int $min The minimum
-     * @param int $max The maximum
+     * @param float $min The minimum
+     * @param float $max The maximum
      */
     public function __construct($min, $max)
     {
@@ -42,7 +42,7 @@ class Area extends AttributedModel
     /**
      * get Min
      *
-     * @return int $min
+     * @return float $min
      */
     public function getMin()
     {
@@ -52,13 +52,13 @@ class Area extends AttributedModel
     /**
      * set Min
      *
-     * @param int $min
+     * @param float $min
      *
      * @return object
      */
     public function setMin($min)
     {
-        $this->min = (int) $min;
+        $this->min = (float) $min;
 
         return $this;
     }
@@ -66,7 +66,7 @@ class Area extends AttributedModel
     /**
      * get Max
      *
-     * @return string $max
+     * @return float $max
      */
     public function getMax()
     {
@@ -76,13 +76,13 @@ class Area extends AttributedModel
     /**
      * set Max
      *
-     * @param string $max
+     * @param float $max
      *
      * @return object
      */
     public function setMax($max)
     {
-        $this->max = (int) $max;
+        $this->max = (float) $max;
 
         return $this;
     }
