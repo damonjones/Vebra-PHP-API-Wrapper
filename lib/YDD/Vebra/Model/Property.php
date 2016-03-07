@@ -112,7 +112,7 @@ class Property extends AttributedModel
     /**
      * get Address
      *
-     * @return array $address
+     * @return Address $address
      */
 
     public function getAddress()

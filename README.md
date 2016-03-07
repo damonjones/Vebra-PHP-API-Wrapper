@@ -2,10 +2,10 @@ Vebra PHP API Wrapper
 =====================
 
 This is a third-party PHP library which aims to simplify the use of the Vebra XML web service.<br />
-The current version of the API is version 8.<br />
+The current version of the API is version 9.<br />
 NB: This library is not affiliated with [Vebra](http://vebra.com/) in any way.<br />
 
-See [Vebra API Version 8](http://webservices.vebra.com/export/xsd/v8/exportapi.xsd) for more information.
+See the [User Guide](http://webservices.vebra.com/export/xsd/v9/Client_Feed_API_v9_UserGuide.pdf) or the [Vebra API Version 9 schema](http://webservices.vebra.com/export/xsd/v9/exportapi.xsd) for more information.
 
 Requirements
 ------------
