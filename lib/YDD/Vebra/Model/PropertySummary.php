@@ -48,7 +48,7 @@ class PropertySummary
     /**
      * set LastChanged
      *
-     * @param DateTime $lastChanged
+     * @param \DateTime $lastChanged
      *
      * @return object
      */
@@ -62,7 +62,7 @@ class PropertySummary
     /**
      * get lastChanged
      *
-     * @return DateTime $lastChanged
+     * @return \DateTime $lastChanged
      */
     public function getLastChanged()
     {
