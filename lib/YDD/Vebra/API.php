@@ -442,7 +442,7 @@ class API
             $file = new File;
             $file->setName(self::normalise($f->name, 'string'));
             $file->setUrl(self::normalise($f->url, 'string'));
-            $file->setUpdated(self::normalise($f->updated, 'string'));
+            $file->setUpdated(self::normalise($f->updated, 'datetime'));
             $file->setAttributes($f->attributes());
             $arr[$file->getAttribute('id')] = $file;
         }

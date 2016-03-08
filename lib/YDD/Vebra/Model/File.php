@@ -24,7 +24,7 @@ class File extends AttributedModel
 
     protected $name;    // varchar 255
     protected $url;     // varchar 255
-    protected $updated; // varchar 255
+    protected $updated; // \DateTime
 
     /**
      * get Name
@@ -77,7 +77,7 @@ class File extends AttributedModel
     /**
      * get Updated
      *
-     * @return string $updated
+     * @return \DateTime $updated
      */
     public function getUpdated()
     {
@@ -87,7 +87,7 @@ class File extends AttributedModel
     /**
      * set Updated
      *
-     * @param string $updated
+     * @param \DateTime $updated
      *
      * @return object
      */
