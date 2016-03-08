@@ -677,7 +677,7 @@ class Property extends AttributedModel
      *
      * @param int $bedrooms
      *
-     * @return objects
+     * @return int
      */
     public function setBedrooms($bedrooms)
     {
@@ -785,7 +785,7 @@ class Property extends AttributedModel
     /**
      * get SoldDate
      *
-     * @return DateTime $soldDate
+     * @return \DateTime $soldDate
      */
     public function getSoldDate()
     {
@@ -795,7 +795,7 @@ class Property extends AttributedModel
     /**
      * set SoldDate
      *
-     * @param DateTime $soldDate
+     * @param \DateTime $soldDate
      *
      * @return object
      */
@@ -809,7 +809,7 @@ class Property extends AttributedModel
     /**
      * get LeaseEnd
      *
-     * @return DateTime $leaseEnd
+     * @return \DateTime $leaseEnd
      */
     public function getLeaseEnd()
     {
@@ -819,7 +819,7 @@ class Property extends AttributedModel
     /**
      * set LeaseEnd
      *
-     * @param DateTime $leaseEnd
+     * @param \DateTime $leaseEnd
      *
      * @return object
      */
@@ -833,7 +833,7 @@ class Property extends AttributedModel
     /**
      * get Instructed
      *
-     * @return DateTime $instructed
+     * @return \DateTime $instructed
      */
     public function getInstructed()
     {
@@ -843,7 +843,7 @@ class Property extends AttributedModel
     /**
      * set Instructed
      *
-     * @param DateTime $instructed
+     * @param \DateTime $instructed
      *
      * @return object
      */
@@ -1193,7 +1193,7 @@ class Property extends AttributedModel
     /**
      * get QueriedAt
      *
-     * @return DateTime $queriedAt
+     * @return \DateTime $queriedAt
      */
     public function getQueriedAt()
     {
@@ -1203,7 +1203,7 @@ class Property extends AttributedModel
     /**
      * set QueriedAt
      *
-     * @param DateTime $queriedAt
+     * @param \DateTime $queriedAt
      *
      * @return object
      */

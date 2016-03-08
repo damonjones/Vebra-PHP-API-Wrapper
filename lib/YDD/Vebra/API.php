@@ -104,7 +104,7 @@ class API
      * @throws NotImplementedException
      * @throws UnknownStatusCodeException
      *
-     * @return SimpleXMLElement
+     * @return \SimpleXMLElement
      */
     public function execute($url, $secondAttempt = false)
     {
@@ -230,7 +230,7 @@ class API
      *
      * @param int $clientId The client ID
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return Branch
      */
@@ -262,7 +262,7 @@ class API
      *
      * @param int $clientId The client ID
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return array
      */
@@ -293,7 +293,7 @@ class API
      * @param int $clientId   The client ID
      * @param int $propertyId The property ID
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return Property
      */
@@ -454,7 +454,7 @@ class API
     /**
      * get ChangedProperties
      *
-     * @param DateTime $date The changed date
+     * @param \DateTime $date The changed date
      *
      * @return array
      */
@@ -479,7 +479,7 @@ class API
     /**
      * get ChangedFiles
      *
-     * @param DateTime $date The changed date
+     * @param \DateTime $date The changed date
      *
      * @return array
      */
@@ -506,8 +506,8 @@ class API
     /**
      * normalise
      *
-     * @param SimpleXMLElement $xml  The xml element
-     * @param string           $cast The type to cast to
+     * @param \SimpleXMLElement $xml  The xml element
+     * @param string            $cast The type to cast to
      *
      * @return mixed
      */

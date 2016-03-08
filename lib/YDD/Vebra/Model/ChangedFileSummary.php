@@ -75,7 +75,7 @@ class ChangedFileSummary
     /**
      * set LastChanged
      *
-     * @param DateTime $lastChanged
+     * @param \DateTime $lastChanged
      *
      * @return object
      */
@@ -89,7 +89,7 @@ class ChangedFileSummary
     /**
      * get lastChanged
      *
-     * @return DateTime $lastChanged
+     * @return \DateTime $lastChanged
      */
     public function getLastChanged()
     {

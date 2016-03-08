@@ -280,7 +280,7 @@ class Branch
     /**
      * set QueriedAt
      *
-     * @param DateTime $queriedAt
+     * @param \DateTime $queriedAt
      *
      * @return object
      */
@@ -294,7 +294,7 @@ class Branch
     /**
      * get QueriedAt
      *
-     * @return DateTime $queriedAt
+     * @return \DateTime $queriedAt
      */
     public function getQueriedAt()
     {

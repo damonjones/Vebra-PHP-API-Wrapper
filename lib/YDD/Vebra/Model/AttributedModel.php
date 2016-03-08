@@ -44,8 +44,8 @@ class AttributedModel
     /**
      * set Attribute
      *
-     * @param string           $key   The attribute name
-     * @param SimpleXMLElement $value The attribute value
+     * @param string            $key   The attribute name
+     * @param \SimpleXMLElement $value The attribute value
      *
      * @return object
      */
