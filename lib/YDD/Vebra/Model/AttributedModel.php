@@ -56,7 +56,7 @@ class AttributedModel
             switch ($type) {
                 case 'boolean':
                 case 'bool':
-                    $value = (bool) $value;
+                    $value = (bool) strval($value);
                     break;
                 case 'integer':
                 case 'int':
