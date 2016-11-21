@@ -56,7 +56,7 @@ class AttributedModel
             switch ($type) {
                 case 'boolean':
                 case 'bool':
-                    $value = (bool) $value;
+                    $value = (bool) filter_var($value, FILTER_VALIDATE_BOOLEAN);
                     break;
                 case 'integer':
                 case 'int':

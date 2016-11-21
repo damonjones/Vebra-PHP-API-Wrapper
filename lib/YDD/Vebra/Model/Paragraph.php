@@ -24,7 +24,7 @@ class Paragraph extends AttributedModel
 
     protected $name;        // varchar 255
     protected $file;        // int (index of the file, see Property's files property)
-    protected $dimensions;  // Dimension
+    protected $dimension;  // Dimension
     protected $text;
 
     /**
