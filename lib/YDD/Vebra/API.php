@@ -413,9 +413,10 @@ class API
 
         $arr = array();
         foreach ($xml->paragraphs->paragraph as $p) {
+
             $paragraph = new Paragraph;
             $paragraph->setName(self::normalise($p->name, 'string'));
-            $paragraph->setFile(self::normalise($p->file, 'int'));
+            $paragraph->setFile(self::normalise($p->file->attributes()['ref'], 'int'));
             $paragraph->setDimension(
                 new Dimension(
                     self::normalise($p->dimensions->metric, 'string'),
