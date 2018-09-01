@@ -1,8 +1,8 @@
 {
-    "name": "ydd/vebra",
+    "name": "kevincoyle/vebra",
     "description": "Vebra API Wrapper",
     "keywords": ["vebra"],
-    "homepage": "https://github.com/mdavis1982/Vebra-PHP-API-Wrapper",
+    "homepage": "https://github.com/kevin-coyle/Vebra-PHP-API-Wrapper",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -15,6 +15,11 @@
             "name": "Matthew Davis",
             "email": "matt@yummyduckdesign.co.uk",
             "homepage": "http://yummyduckdesign.co.uk/"
+        },
+        {
+            "name": "Kevin Coyle",
+            "email": "kevin.coyle@drutek.co.uk"
+            "homepage": "https://drutek.co.uk"
         }
     ],
     "require": {
