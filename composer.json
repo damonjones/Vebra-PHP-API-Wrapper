@@ -1,8 +1,8 @@
 {
-    "name": "kevincoyle/vebra",
+    "name": "ydd/vebra",
     "description": "Vebra API Wrapper",
     "keywords": ["vebra"],
-    "homepage": "https://github.com/kevin-coyle/Vebra-PHP-API-Wrapper",
+    "homepage": "https://github.com/mdavis1982/Vebra-PHP-API-Wrapper",
     "type": "library",
     "license": "MIT",
     "authors": [
